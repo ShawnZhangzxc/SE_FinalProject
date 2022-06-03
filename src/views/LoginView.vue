@@ -29,6 +29,7 @@
 </template>
 
 <script>
+const axios = require('axios');
   export default {
     data() {
       var validateuserName = (rule, value, callback) =>{
@@ -72,6 +73,15 @@
       };
     },
     methods: {
+      callback(key) {
+        console.log(key);
+      },
+      successmessage(msg){
+        this.$message.success(msg);
+      },
+      errormessage(msg){
+        this.$message.error(msg);
+      },
       checklogin(){
       let formData = new FormData();
       formData.append('username', this.loginForm.userName);
@@ -82,21 +92,22 @@
           }
       };
       var _this = this
-      axios.post('http://localhost:5000/api/login/',formData, config)
+      axios.post('http://localhost:8080/api/api/login',formData, config)
           .then(function (response)  {
               if (response.data.message!='fail') {
-                  _this.wronglog.wl = false;
-                  _this.rightlog.rl = true;
+                  // _this.wronglog.wl = false;
+                  // _this.rightlog.rl = true;
                   localStorage.setItem('token',_this.loginForm.userName);
                   localStorage.setItem('userid', response.data.id);
                   console.log("用户登录" + localStorage.getItem("userid"));
+                  _this.successmessage("登录成功");
                   // _this.$router.push('/');
 
                   
                   // _this.$router.go(0)
               }else {
-                  _this.wronglog.wl=true;
-                  _this.rightlog.rl=false;
+                  // _this.wronglog.wl=true;
+                  // _this.rightlog.rl=false;
               }
           })
           .catch(function () {

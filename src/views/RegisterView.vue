@@ -40,6 +40,7 @@
 </template>
 
 <script>
+const axios = require('axios');
   export default {
     data() {
       var validateuserName = (rule, value, callback) =>{
@@ -117,6 +118,15 @@
       };
     },
     methods: {
+      callback(key) {
+        console.log(key);
+      },
+      successmessage(msg){
+       this.$message.success(msg);
+      },
+      errormessage(msg){
+        this.$message.error(msg);
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -130,7 +140,7 @@
               }
           };
           var _this = this
-          axios.post('http://localhost:5000/api/regist/',formData,config)
+          axios.post('http://localhost:8080/api/api/regist',formData,config)
               .then(function (response) {
                   if (response.data.message=="success"){
                     _this.successmessage("注册成功");
