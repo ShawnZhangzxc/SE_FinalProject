@@ -1,6 +1,6 @@
 <template>
   <div >
-    <h1>这是 我创建的团队 页面</h1>
+    <group-display judge="create"></group-display>
   </div>
 </template>
 
@@ -10,7 +10,10 @@
 </style>
 
 
-
 <script>
-
+import GroupDisplay from "@/components/GroupDisplay";
+export default {
+  components: {GroupDisplay}
+}
 </script>
+
