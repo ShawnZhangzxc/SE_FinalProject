@@ -17,7 +17,7 @@
     </el-header>
 
     <el-container>
-       <el-aside width="200px">
+       <el-aside width="150px">
 
       <el-menu
       default-active="2"
