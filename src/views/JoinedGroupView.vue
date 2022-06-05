@@ -1,6 +1,6 @@
 <template>
   <div >
-    <h1>这是 我加入的团队 页面</h1>
+    <group-display judge="join"></group-display>
   </div>
 </template>
 
@@ -10,7 +10,9 @@
 </style>
 
 
-
 <script>
-
+import GroupDisplay from "@/components/GroupDisplay";
+export default {
+  components: {GroupDisplay}
+}
 </script>
