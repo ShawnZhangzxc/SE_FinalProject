@@ -1,13 +1,13 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div>
     <div class="group" v-show="groupVisible">
       <el-row>
         <el-col :span = 6>
-        <div style="color: black" class="groupName"> {{groupName}} </div>
+        <div style="color: black" class="groupName" @click="InfoboxClick"> {{groupName}} </div>
         </el-col>
         <el-col :span = 6 :offset=3 class="grouper">
 
-          <div> 创建者: {{grouper}} </div>
+          <div @click="InfoboxClick"> 创建者: {{grouper}} </div>
         </el-col>
         <el-col  :span = 6 :offset = 3 v-if="judge === 'join'">
           <template>
@@ -25,10 +25,10 @@
                   <el-input v-model="inviteForm.userName"></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="confirmInvite" :disabled="invitable">邀请</el-button>
+                  <el-button @click="confirmInvite" :disabled="invitable">邀请</el-button>
                 </el-form-item>
               </el-form>
-              <el-button slot="reference" type="success" plain @click="inputUser" size="medium">邀请</el-button>
+              <el-button slot="reference" icon="el-icon-user-solid" plain @click="inputUser" size="medium">邀请</el-button>
 
             </el-popover>
             <el-popconfirm
@@ -39,12 +39,12 @@
                 icon-color="red"
                 title="确认要退出该团队吗？"
             >
-              <el-button type="danger" icon="el-icon-delete" slot="reference" circle></el-button>
+              <el-button icon="el-icon-s-release" slot="reference" plain size="medium">退出团队</el-button>
             </el-popconfirm>
           </template>
         </el-col>
         <el-col  :span = 9 v-if="judge === 'create'">
-          <el-button type="info" icon="el-icon-user" size="small" @click="manageMem">管理成员</el-button>
+          <el-button icon="el-icon-user" size="small" @click="manageMem">管理成员</el-button>
           <el-drawer
               title="群成员"
               :visible.sync="drawerVisible"
@@ -63,10 +63,11 @@
               icon-color="red"
               title="确认要解散该团队吗？"
           >
-            <el-button type="danger" icon="el-icon-delete-solid" plain slot="reference" size="small">解散团队</el-button>
+            <el-button  icon="el-icon-delete-solid" plain slot="reference" size="small">解散团队</el-button>
           </el-popconfirm>
         </el-col>
       </el-row>
+
     </div>
   </div >
 
@@ -130,6 +131,10 @@ export default {
       }
     }},
   methods:{
+    InfoboxClick(){
+      //alert('Chenggong');
+      this.$emit('isClick',this.groupId);
+    },
     manageMem(){
       this.drawerVisible = true;
       var _this = this;
@@ -269,16 +274,19 @@ export default {
 .group{
   border-radius:10px;
   height: 70px;
-  width: 650px;
-  background-color: #d4d4d4;
+  width: 1250px;
+  background-color:#fcfcfd;
   margin-top: 2px;
   margin-left: 25px;
   color: #000000 ;
   font-size: 15px;
   line-height: 70px;
+  border-style:solid;
+  border-width:1px;
+  border-color: #eeeeee;
 }
 .group:hover{
-  background-color:#c8c8c8;
+  background-color:#fcfafa;
 }
 .groupName{
   font-family: "PingFang SC";
@@ -290,5 +298,8 @@ export default {
   /*background-color: #42b983;*/
   font-size: 18px;
   text-align: left;
+}
+.group{
+  /*pointer-events: none;*/
 }
 </style>

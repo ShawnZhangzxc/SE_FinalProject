@@ -7,7 +7,7 @@
           trigger="hover"
           content="点我创建一个新团队
           o(*￣▽￣*)ブ">
-        <el-button type="primary" slot="reference" @click="showTeamForm" round>+</el-button>
+        <el-button  slot="reference" @click="showTeamForm" round icon="el-icon-s-opportunity"></el-button>
       </el-popover>
     </el-col>
 
@@ -28,9 +28,9 @@
         <el-input type="textarea" v-model="newTeamForm.description"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="createTeam('newTeamForm')" :disabled="!creatable">立即创建</el-button>
-        <el-button @click="resetForm('newTeamForm')">重置</el-button>
-        <el-button type="info" @click="cancelCreate('newTeamForm')">取消</el-button>
+        <el-button  @click="createTeam('newTeamForm')" :disabled="!creatable">立即创建</el-button>
+        <el-button icon="el-icon-refresh-left" @click="resetForm('newTeamForm')">重置</el-button>
+        <el-button  icon="el-icon-close" @click="cancelCreate('newTeamForm')">取消</el-button>
       </el-form-item>
     </el-form>
     </div>

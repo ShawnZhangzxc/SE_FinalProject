@@ -1,27 +1,33 @@
 <template>
   <div >
     <!-- 这是我加入的团队 页面 -->
-    <div id="group-show">
+    <div id="group-show" v-if="!groupHomeVisible">
       <div v-if="judge === 'join'" class="head-line">我加入的团队</div>
       <div v-if="judge === 'create'" class="head-line">我创建的团队</div>
-      <group-infobox group-name="软工小队" grouper="Shake" group-id="" user-i-d="" :judge="judge"></group-infobox>
-      <group-infobox group-name="建模小队" grouper="Wu" group-id="" user-i-d="" :judge="judge"></group-infobox>
+      <group-infobox group-name="软工小队" grouper="Shake" group-id="" user-i-d="" :judge="judge" v-on:isClick="isClick"></group-infobox>
+      <group-infobox group-name="建模小队" grouper="Wu" group-id="" user-i-d="" :judge="judge" v-on:isClick="isClick"></group-infobox>
       <group-infobox v-for="item in message"
                      :user-i-d="item.userId"
                      :group-id="item.groupId"
                      :grouper="item.grouper"
                      :group-name="item.groupName"
-      :judge="judge">
+                     v-on:isClick="isClick"
+                     :judge="judge"
+      >
       </group-infobox>
+    </div>
+    <div>
+      <group-home v-if="groupHomeVisible" v-on:isClick="isClick"></group-home>
     </div>
   </div>
 </template>
 
 <script>
 import GroupInfobox from "@/components/GroupInfobox";
+import GroupHome from "@/components/GroupHome";
 export default {
   name:"GroupDisplay",
-  components: {GroupInfobox},
+  components: {GroupHome, GroupInfobox},
   props:{
     judge: {
       type:String,
@@ -30,6 +36,7 @@ export default {
   },
   data(){
     return{
+      groupHomeVisible:false,
       userId:"",
       message: [
         {
@@ -48,6 +55,15 @@ export default {
     }
   },
   methods:{
+    isClick(message){
+      //alert('aaaaaaa');
+      this.groupHomeVisible = !this.groupHomeVisible;
+      if(message !== 'return'){
+
+
+      }
+
+    },
     load_userId(){
       this.userId = localStorage.getItem("token");
     }
@@ -77,13 +93,15 @@ export default {
 <style>
 #group-show{
   padding-bottom: 20px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.7);
   border-radius:10px;
-  background-color: #ebebeb;
-  width: 700px;
+  background-color: #ffffff;
+  width: 1300px;
   margin:0 auto;
 }
 .head-line{
+  /*text-align: left;
+  padding-left: 50px;*/
   font-size: 30px;
   height: 60px;
   line-height: 50px;
