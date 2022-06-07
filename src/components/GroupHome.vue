@@ -47,7 +47,7 @@ export default {
 #group-introduce{
   font-family: "华文行楷";
   padding-left: 70px;
-  line-height: 75px;
+  line-height: 25px;
   text-align: left;
   font-size:35px;
   border-radius: 5px;

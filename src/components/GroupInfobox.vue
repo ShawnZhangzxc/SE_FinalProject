@@ -28,7 +28,7 @@
                   <el-button @click="confirmInvite" :disabled="invitable">邀请</el-button>
                 </el-form-item>
               </el-form>
-              <el-button slot="reference" icon="el-icon-user-solid" plain @click="inputUser" size="medium">邀请</el-button>
+              <el-button slot="reference" icon="el-icon-user-solid" plain @click="inputUser" size="small">邀请</el-button>
 
             </el-popover>
             <el-popconfirm
@@ -39,11 +39,11 @@
                 icon-color="red"
                 title="确认要退出该团队吗？"
             >
-              <el-button icon="el-icon-s-release" slot="reference" plain size="medium">退出团队</el-button>
+              <el-button icon="el-icon-s-release" slot="reference" plain size="small">退出团队</el-button>
             </el-popconfirm>
           </template>
         </el-col>
-        <el-col  :span = 9 v-if="judge === 'create'">
+        <el-col  :span = 6 :offset = 3 v-if="judge === 'create'">
           <el-button icon="el-icon-user" size="small" @click="manageMem">管理成员</el-button>
           <el-drawer
               title="群成员"
