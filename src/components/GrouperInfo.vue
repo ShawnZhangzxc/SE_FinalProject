@@ -24,6 +24,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: "GrouperInfo",
   data(){
@@ -62,7 +63,7 @@ export default {
         },
       };
       axios
-          .post("http://localhost:5000/api/delete_group/", formData, config)
+          .post("http://localhost:8080/api/api/delete_group", formData, config)
           .then(function (response) {
             console.log(response.data.message);
             if (response.data.message === "success") {

@@ -27,6 +27,7 @@
 <script>
 import GroupInfobox from "@/components/GroupInfobox";
 import GroupHome from "@/components/GroupHome";
+const axios = require('axios');
 export default {
   name:"GroupDisplay",
   components: { GroupHome, GroupInfobox},
@@ -69,7 +70,7 @@ export default {
       }
     };
     if (this.judge === 'create') {
-      axios.post("http://localhost:5000/api/group_created_byme/", formData, config)
+      axios.post("http://localhost:8080/api/api/group_created_byme", formData, config)
           .then(function (response) {
             _this.data().message = response.data();
           })
@@ -78,7 +79,7 @@ export default {
           });
     }
     if (this.judge === 'join') {
-      axios.post("http://localhost:5000/api/mygroup/", formData, config)
+      axios.post("http://localhost:8080/api/api/mygroup", formData, config)
           .then(function (response) {
             _this.data().message = response.data();
           })

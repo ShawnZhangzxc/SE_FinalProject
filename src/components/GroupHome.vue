@@ -20,6 +20,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: "GroupHome",
   data(){

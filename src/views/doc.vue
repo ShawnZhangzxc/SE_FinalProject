@@ -30,9 +30,9 @@
                 <userCard :userName="item.username"></userCard>
                  {{item.content}}<br>
                 <span>{{ moment(item.datetime).subtract(8,'hours').fromNow()}}</span>
-                </li>
+                </li>            
                  <el-button type="text" slot="reference" size="medium">查看评论</el-button>
-                </el-popover>
+                </el-popover>              
               </el-breadcrumb-item>
               <el-breadcrumb-item>
                <el-popover
@@ -43,12 +43,12 @@
                <userCard :userName="item.username"></userCard>
                  {{item.content}}<br>
                 <span>{{ moment(item.datetime).subtract(8,'hours').fromNow()}}</span>
-                </li>
+                </li>            
                 <el-button type="text" slot="reference" size="medium">查看历史</el-button>
                </el-popover>
               </el-breadcrumb-item>
               <el-breadcrumb-item>
-
+              
 
           <el-popover
                   placement="right"
@@ -80,13 +80,13 @@
                   @click="invite(text.id)">邀请</el-button>
                 </template>
              </el-table-column>
-           </el-table>
+           </el-table>        
             <el-button type="text" slot="reference" size="medium">邀请协作</el-button>
            </el-popover>
 
               </el-breadcrumb-item>
               <el-breadcrumb-item>
-
+              
             <el-popover
              placement="right"
              width="280"
@@ -104,14 +104,14 @@
               </el-breadcrumb-item>
           </el-breadcrumb>
 
-
+          
           </el-col>
   </div>
 
-            <mavon-editor
+            <mavon-editor  
               v-model="content"
               ref="md"
-
+              
               @change="change"
               style="min-height: 660px; z-index:1;width:100%"
               :editable="modify_right"
@@ -138,9 +138,12 @@ import axios from "axios";
 import moment from "moment";
 import "@/utils/htmlToPdf.js"
 import docxtemplater from 'docxtemplater'
+import PizZip from 'pizzip'
 import JSZip from "jszip";
 import JSZipUtils from 'jszip-utils'
 import {saveAs} from 'file-saver'
+import $ from 'jquery'
+import html2canvas from 'html2canvas'
 import docCard from '../components/docCard'
 import accessform from '../components/accessForm'
 
@@ -155,26 +158,26 @@ const inviteColumns = [
     dataIndex:'username',
     key:'username',
   },
-  {
+  { 
     title: 'Action',
     dataIndex: '',
     key: 'x',
-     scopedSlots: {
-       customRender: 'action'
+     scopedSlots: { 
+       customRender: 'action' 
        }
   },
 ];
 function myrefresh() {
   window.location.reload();
 }
-function contains(arr, obj) {
-  var i = arr.length;
-    while (i--) {
-      if (arr[i].username=== obj) {
-        return true;
-      }
-    }
-  return false;
+function contains(arr, obj) {  
+  var i = arr.length;  
+    while (i--) {  
+      if (arr[i].username=== obj) {  
+        return true;  
+      }  
+    }  
+  return false;  
 }
 export default {
   name: "doc",
@@ -237,7 +240,7 @@ export default {
           console.log(error)
           throw error;
         }
-
+        
         // 创建一个JSZip实例，内容为模板的内容
         let zip = new JSZip(content);
         // 创建并加载docxtemplater实例对象
@@ -247,7 +250,7 @@ export default {
           ..._this.form,
           table: _this.tableData
         });
-
+        
         try {
           // 用模板变量的值替换所有模板变量
           doc.render();
@@ -262,7 +265,7 @@ export default {
           console.log(JSON.stringify({ error: e }));
           throw error;
         }
-
+        
         // 生成一个代表docxtemplater对象的zip文件（不是一个真实的文件，而是在内存中的表示）
         let out = doc.getZip().generate({
           type: "blob",
@@ -339,7 +342,7 @@ export default {
               })
               _this.initWebSocket();
             }
-
+            
           } else {
             console.log("失败");
           }
@@ -349,7 +352,7 @@ export default {
         });
     },
     searchuser(){
-
+      
       var _this = this;
       let formData = new FormData();
       formData.append("keyword",_this.inviteuser);
@@ -370,7 +373,7 @@ export default {
                   //_this.successmsg("zhao成功");
                   console.log(response.data)
                   _this.invitedata = response.data;
-                }
+                } 
                 else {
                   console.log(response.data)
                   _this.errormsg("查找失败，请尝试刷新后再次创建1");
@@ -409,7 +412,7 @@ export default {
           console.log("wrong", error);
         });
     },
-
+    
     callback() {},
     // 提交
     save_docs() {
@@ -591,7 +594,7 @@ export default {
           if (response) {
             //_this.successmsg("邀请成功");
             _this.userId = response.data.id
-
+            
           } else {
             _this.errormsg("获取用户ID失败");
           }
@@ -616,7 +619,7 @@ export default {
         .then(function (response) {
           if (response) {
             _this.doctitle = response.data.title;
-
+            
           } else {
             console.log("失败");
           }
@@ -624,10 +627,10 @@ export default {
         .catch(function (error) {
           console.log("Fail", error);
         });
-
+    
     },
   },
-
+  
   destroyed() {
     clearInterval(this.timer);
     this.websock.close(); //离开路由之后断开websocket连接

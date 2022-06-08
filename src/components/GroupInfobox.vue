@@ -74,6 +74,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 import GrouperInfo from "@/components/GrouperInfo";
 export default {
   name: "GroupInfobox",
@@ -164,7 +165,7 @@ export default {
         },
       };
       axios
-          .post("http://localhost:5000/api/delete_group/", formData, config)
+          .post("http://localhost:8080/api/api/delete_group", formData, config)
           .then(function (response) {
             console.log(response.data.message);
             if (response.data.message === "success") {
@@ -196,7 +197,7 @@ export default {
           "Content-Type": "multipart/form-data",
         }
       };
-      axios.post("http://localhost:5000/api/quit_group/", formData, config)
+      axios.post("http://localhost:8080/api/api/quit_group", formData, config)
           .then(function (response) {
             this.groupVisible=false;
             console.log("返回的结果是" + response.data.message);
@@ -238,7 +239,7 @@ export default {
           "Content-Type": "multipart/form-data",
         },
       };
-      axios.post("http://localhost:5000/api/invite_user/", formData, config)
+      axios.post("http://localhost:8080/api/api/invite_user", formData, config)
           .then(function (response) {
             if (response) {
               _this.$message({
