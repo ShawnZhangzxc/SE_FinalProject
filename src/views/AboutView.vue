@@ -1,5 +1,15 @@
 <template>
   <div class="about">
-    <h1>这里是帮助页面，之后会写一些文档使用的说明</h1>
-  </div>
+    <h1>好的应用，界面就是说明书!</h1>
+   </div>
 </template>
+
+
+<script>
+import createDoc from '../components/CreateDoc';
+export default {
+  components:{
+      createDoc,
+  }
+}
+</script>

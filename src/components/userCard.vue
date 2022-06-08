@@ -4,8 +4,9 @@
         placement="bottom"
         title=""
         width="500"
-        trigger="click">
-         <el-button slot="reference" >{{username}}</el-button>
+        trigger="hover">
+         <!-- <el-button slot="reference" >{{username}}</el-button> -->
+         <el-avatar slot="reference"> {{username}} </el-avatar>
          <userInfo v-bind:userName="username"></userInfo>
         </el-popover>
     

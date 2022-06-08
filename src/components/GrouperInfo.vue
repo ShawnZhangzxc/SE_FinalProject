@@ -1,7 +1,7 @@
 <template>
   <div class="grouper-info" v-if="memberInfoVisible">
     <el-row>
-      <el-col :span=6 style="font-family: 楷体">{{userName}}</el-col>
+      <el-col :span=6 style="font-family: Consolas">{{userName}}</el-col>
       <el-col :span=6 style="font-family: Consolas">{{userId}}</el-col>
       <el-popconfirm
           confirm-button-text='确定'
@@ -12,8 +12,7 @@
           title="确认要移除该成员吗？"
       >
       <el-button icon="el-icon-remove"
-                 style="background-color: #fbb8b5;
-                 color: black;
+                 style="color: black;
                  border-color: #333333"
                  slot="reference"
       >
@@ -25,6 +24,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: "GrouperInfo",
   data(){
@@ -63,7 +63,7 @@ export default {
         },
       };
       axios
-          .post("http://localhost:5000/api/delete_group/", formData, config)
+          .post("http://localhost:8080/api/api/delete_group", formData, config)
           .then(function (response) {
             console.log(response.data.message);
             if (response.data.message === "success") {
@@ -85,15 +85,18 @@ export default {
 
 <style scoped>
 .grouper-info{
-  background-color: lightblue;
+  background-color: #fcfcfd;
   margin-left: 5px;
   margin-right: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   border-radius: 5px;
-  box-shadow: 3px 3px 2px #888888;
+  border-style:solid;
+  border-width:1px;
+  border-color: #888888;
+  box-shadow: 2px 2px 2px #888888;
  /* opacity: 0.3;*/
 }
 .grouper-info:hover{
-  background-color: #7ab7f1;
+  background-color: #f6f2f2;
 }
 </style>

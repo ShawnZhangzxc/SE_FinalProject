@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <h1>这里是回收站</h1>
+  <div class="trashbin">
+    <dustbindoc></dustbindoc>
   </div>
 </template>
 
@@ -12,5 +12,10 @@
 
 
 <script>
-
+import dustbindoc from '../components/DustbinDoc';
+export default {
+  components:{
+      dustbindoc,
+  }
+}
 </script>

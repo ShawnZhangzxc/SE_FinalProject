@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <h1>这里展示团队文档</h1>
+  <div class="group">
+    <groupdoc></groupdoc>
   </div>
 </template>
 
@@ -12,5 +12,10 @@
 
 
 <script>
-
+import groupdoc from '../components/GroupDoc';
+export default {
+  components:{
+      groupdoc,
+  }
+}
 </script>

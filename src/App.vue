@@ -3,8 +3,11 @@
   <el-container>
 
     <el-header>
-    <el-col :span="12">
-      <h2 id="docname">&nbsp阿巴阿巴文档</h2>
+    <el-col :span="1">
+    <img src="../public/symbol.jpg" alt="Hi!" style="width:50px;height:50px">
+    </el-col>
+    <el-col :span="11">
+      <h2 id="docname">阿巴阿巴文档</h2>
     </el-col>
     <el-col :span="12">
       <nav>
@@ -35,10 +38,10 @@
             <router-link to="/personalinfo">个人信息</router-link>
         </el-menu-item>
         <el-menu-item>
-           <router-link to="/friends">我的好友</router-link>
+           <router-link to="/keptdoc">我的收藏</router-link>
         </el-menu-item>
         <el-menu-item>
-            <router-link to="/settings">个人设置</router-link>
+            <router-link to="/recent">最近浏览</router-link>
         </el-menu-item>
       </el-submenu>
       
@@ -53,9 +56,9 @@
         <el-menu-item>
             <router-link to="/createdgroup">我创建的团队</router-link>
         </el-menu-item>
-        <el-menu-item>
+        <!-- <el-menu-item>
             <router-link to="/buildinggroup">新建团队</router-link>
-        </el-menu-item>
+        </el-menu-item> -->
       </el-submenu>
       
       <el-submenu index="3">
@@ -81,11 +84,11 @@
           <span>消息通知</span>
         </template>
         <el-menu-item>
-             <router-link to="/systemnews">系统通知</router-link>
+             <router-link to="/systemnews">所有通知</router-link>
         </el-menu-item>
-        <el-menu-item>
+        <!-- <el-menu-item>
             <router-link to="/groupnews">团队通知</router-link>
-        </el-menu-item>
+        </el-menu-item> -->
 
       </el-submenu>
 
@@ -134,7 +137,7 @@ nav a.router-link-exact-active {
     background-color: #FFFFFF;
     color: #333;
     text-align: right;
-    line-height: 20px;
+    line-height: 15px;
     border-bottom: solid 1px;
   }
 

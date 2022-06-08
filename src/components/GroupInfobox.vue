@@ -1,13 +1,13 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div>
     <div class="group" v-show="groupVisible">
       <el-row>
         <el-col :span = 6>
-        <div style="color: black" class="groupName"> {{groupName}} </div>
+        <div style="color: black" class="groupName" @click="InfoboxClick"> {{groupName}} </div>
         </el-col>
         <el-col :span = 6 :offset=3 class="grouper">
 
-          <div> 创建者: {{grouper}} </div>
+          <div @click="InfoboxClick"> 创建者: {{grouper}} </div>
         </el-col>
         <el-col  :span = 6 :offset = 3 v-if="judge === 'join'">
           <template>
@@ -25,10 +25,10 @@
                   <el-input v-model="inviteForm.userName"></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="confirmInvite" :disabled="invitable">邀请</el-button>
+                  <el-button @click="confirmInvite" :disabled="invitable">邀请</el-button>
                 </el-form-item>
               </el-form>
-              <el-button slot="reference" type="success" plain @click="inputUser" size="medium">邀请</el-button>
+              <el-button slot="reference" icon="el-icon-user-solid" plain @click="inputUser" size="small">邀请</el-button>
 
             </el-popover>
             <el-popconfirm
@@ -39,12 +39,12 @@
                 icon-color="red"
                 title="确认要退出该团队吗？"
             >
-              <el-button type="danger" icon="el-icon-delete" slot="reference" circle></el-button>
+              <el-button icon="el-icon-s-release" slot="reference" plain size="small">退出团队</el-button>
             </el-popconfirm>
           </template>
         </el-col>
-        <el-col  :span = 9 v-if="judge === 'create'">
-          <el-button type="info" icon="el-icon-user" size="small" @click="manageMem">管理成员</el-button>
+        <el-col  :span = 6 :offset = 3 v-if="judge === 'create'">
+          <el-button icon="el-icon-user" size="small" @click="manageMem">管理成员</el-button>
           <el-drawer
               title="群成员"
               :visible.sync="drawerVisible"
@@ -63,10 +63,11 @@
               icon-color="red"
               title="确认要解散该团队吗？"
           >
-            <el-button type="danger" icon="el-icon-delete-solid" plain slot="reference" size="small">解散团队</el-button>
+            <el-button  icon="el-icon-delete-solid" plain slot="reference" size="small">解散团队</el-button>
           </el-popconfirm>
         </el-col>
       </el-row>
+
     </div>
   </div >
 
@@ -74,6 +75,7 @@
 
 <script>
 import GrouperInfo from "@/components/GrouperInfo";
+const axios = require('axios');
 export default {
   name: "GroupInfobox",
   components: {GrouperInfo},
@@ -141,7 +143,7 @@ export default {
           "Content-Type": "multipart/form-data",
         }
       };
-      axios.post("http://localhost:5000/api/joined_group/", formData, config)
+      axios.post("http://localhost:8080/api/api/mygroup", formData, config)
           .then(function (response) {
             _this.grouperInfo = response.data();
           })
@@ -168,7 +170,7 @@ export default {
         },
       };
       axios
-          .post("http://localhost:5000/api/delete_group/", formData, config)
+          .post("http://localhost:8080/api/api/delete_group", formData, config)
           .then(function (response) {
             console.log(response.data.message);
             if (response.data.message === "success") {
@@ -200,7 +202,7 @@ export default {
           "Content-Type": "multipart/form-data",
         }
       };
-      axios.post("http://localhost:5000/api/quit_group/", formData, config)
+      axios.post("http://localhost:8080/api/api/quit_group", formData, config)
           .then(function (response) {
             this.groupVisible=false;
             console.log("返回的结果是" + response.data.message);
@@ -242,7 +244,7 @@ export default {
           "Content-Type": "multipart/form-data",
         },
       };
-      axios.post("http://localhost:5000/api/invite_user/", formData, config)
+      axios.post("http://localhost:8080/api/api/invite_user", formData, config)
           .then(function (response) {
             if (response) {
               _this.$message({
@@ -264,31 +266,36 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 .group{
   border-radius:10px;
   height: 70px;
-  width: 650px;
-  background-color: #d4d4d4;
+  width: 1250px;
+  background-color:#fcfcfd;
   margin-top: 2px;
   margin-left: 25px;
   color: #000000 ;
   font-size: 15px;
   line-height: 70px;
+  border-style:solid;
+  border-width:1px;
+  border-color: #eeeeee;
 }
 .group:hover{
-  background-color:#c8c8c8;
+  background-color:#fcfafa;
 }
 .groupName{
-  font-family: "PingFang SC";
+  /* font-family: "PingFang SC"; */
   /*background-color: #0080ff;*/
   font-size: 20px;
 }
 .grouper{
-  font-family: "华文行楷";
+  /* font-family: "华文行楷"; */
   /*background-color: #42b983;*/
   font-size: 18px;
   text-align: left;
+}
+.group{
+  /*pointer-events: none;*/
 }
 </style>

@@ -32,14 +32,14 @@ export default {
       this.display_info=false;
       console.log("change调用");
       console.log(this.display_change);
-      console.log(this.dispaly_info);
+      console.log(this.display_info);
     },
     to_display_info() {
       this.display_change=false;
       this.display_info=true;
       console.log("info调用");
       console.log(this.display_change);
-      console.log(this.dispaly_info);
+      console.log(this.display_info);
     }
   }
 }

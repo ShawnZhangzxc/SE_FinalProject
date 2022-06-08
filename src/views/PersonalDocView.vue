@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <h1>这里展示个人文档</h1>
+  <div class="created">
+    <createddoc></createddoc>
   </div>
 </template>
 
@@ -12,5 +12,16 @@
 
 
 <script>
-
+import createddoc from '../components/CreatedDoc';
+export default {
+  components:{
+      createddoc,
+  }
+}
 </script>
+
+
+<style>
+
+
+</style>
