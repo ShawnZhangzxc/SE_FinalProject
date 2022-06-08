@@ -7,7 +7,7 @@
           trigger="hover"
           content="点我创建一个新团队
           o(*￣▽￣*)ブ">
-        <el-button  slot="reference" @click="showTeamForm" round icon="el-icon-plus"></el-button>
+        <el-button  slot="reference" @click="showTeamForm" round icon="el-icon-s-opportunity"></el-button>
       </el-popover>
     </el-col>
     <div id="TeamForm">
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-const axios = require('axios');
 function myrefresh() {
   window.location.reload();
 }
@@ -89,7 +88,7 @@ export default {
 
       axios
           .post(
-              "http://localhost:8080/api/api/creategroup",
+              "http://localhost:5000/api/creategroup/",
               formData,
               config
           )

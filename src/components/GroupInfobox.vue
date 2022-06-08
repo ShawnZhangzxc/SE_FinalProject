@@ -75,22 +75,12 @@
 
 <script>
 import GrouperInfo from "@/components/GrouperInfo";
-const axios = require('axios');
 export default {
   name: "GroupInfobox",
   components: {GrouperInfo},
   data(){
     return{
-      grouperInfo:[
-        {
-        grouperName:"老王",
-        grouperId:"12345"
-        },
-        {
-          grouperName:"老李",
-          grouperId:"12346"
-        },
-      ],
+      grouperInfo:[],
       drawerVisible:false,
       invitable:true,
       groupVisible:true,
@@ -132,6 +122,10 @@ export default {
       }
     }},
   methods:{
+    InfoboxClick(){
+      //alert('Chenggong');
+      this.$emit('isClick',this.groupId);
+    },
     manageMem(){
       this.drawerVisible = true;
       var _this = this;
@@ -143,7 +137,7 @@ export default {
           "Content-Type": "multipart/form-data",
         }
       };
-      axios.post("http://localhost:8080/api/api/mygroup", formData, config)
+      axios.post("http://localhost:5000/api/joined_group/", formData, config)
           .then(function (response) {
             _this.grouperInfo = response.data();
           })
@@ -170,7 +164,7 @@ export default {
         },
       };
       axios
-          .post("http://localhost:8080/api/api/delete_group", formData, config)
+          .post("http://localhost:5000/api/delete_group/", formData, config)
           .then(function (response) {
             console.log(response.data.message);
             if (response.data.message === "success") {
@@ -202,7 +196,7 @@ export default {
           "Content-Type": "multipart/form-data",
         }
       };
-      axios.post("http://localhost:8080/api/api/quit_group", formData, config)
+      axios.post("http://localhost:5000/api/quit_group/", formData, config)
           .then(function (response) {
             this.groupVisible=false;
             console.log("返回的结果是" + response.data.message);
@@ -244,7 +238,7 @@ export default {
           "Content-Type": "multipart/form-data",
         },
       };
-      axios.post("http://localhost:8080/api/api/invite_user", formData, config)
+      axios.post("http://localhost:5000/api/invite_user/", formData, config)
           .then(function (response) {
             if (response) {
               _this.$message({
@@ -266,6 +260,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .group{
   border-radius:10px;
@@ -285,12 +280,12 @@ export default {
   background-color:#fcfafa;
 }
 .groupName{
-  /* font-family: "PingFang SC"; */
+  font-family: "PingFang SC";
   /*background-color: #0080ff;*/
   font-size: 20px;
 }
 .grouper{
-  /* font-family: "华文行楷"; */
+  font-family: "华文行楷";
   /*background-color: #42b983;*/
   font-size: 18px;
   text-align: left;

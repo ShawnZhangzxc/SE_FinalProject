@@ -1,7 +1,7 @@
 <template>
   <div class="grouper-info" v-if="memberInfoVisible">
     <el-row>
-      <el-col :span=6 style="font-family: Consolas">{{userName}}</el-col>
+      <el-col :span=6 style="font-family: 楷体">{{userName}}</el-col>
       <el-col :span=6 style="font-family: Consolas">{{userId}}</el-col>
       <el-popconfirm
           confirm-button-text='确定'
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-const axios = require('axios');
 export default {
   name: "GrouperInfo",
   data(){
@@ -63,7 +62,7 @@ export default {
         },
       };
       axios
-          .post("http://localhost:8080/api/api/delete_group", formData, config)
+          .post("http://localhost:5000/api/delete_group/", formData, config)
           .then(function (response) {
             console.log(response.data.message);
             if (response.data.message === "success") {

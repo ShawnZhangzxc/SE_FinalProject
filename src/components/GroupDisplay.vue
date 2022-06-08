@@ -5,8 +5,8 @@
       <div id="group-show" v-if="!groupHomeVisible">
         <div v-if="judge === 'join'" class="head-line">我加入的团队</div>
         <div v-if="judge === 'create'" class="head-line">我创建的团队</div>
-        <!-- <group-infobox group-name="软工小队" grouper="Shake" group-id="" user-i-d="" :judge="judge" v-on:isClick="isClick"></group-infobox>
-        <group-infobox group-name="建模小队" grouper="Wu" group-id="" user-i-d="" :judge="judge" v-on:isClick="isClick"></group-infobox> -->
+        <group-infobox group-name="软工小队" grouper="Shake" group-id="" user-i-d="" :judge="judge" v-on:isClick="isClick"></group-infobox>
+        <group-infobox group-name="建模小队" grouper="Wu" group-id="" user-i-d="" :judge="judge" v-on:isClick="isClick"></group-infobox>
         <group-infobox v-for="item in message"
                        :user-i-d="item.userId"
                        :group-id="item.groupId"
@@ -17,19 +17,19 @@
         >
         </group-infobox>
       </div>
-      <!-- <div>
+      <div>
         <group-home v-if="groupHomeVisible" v-on:isClick="isClick"></group-home>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import GroupInfobox from "@/components/GroupInfobox";
-const axios = require('axios');
+import GroupHome from "@/components/GroupHome";
 export default {
   name:"GroupDisplay",
-  components: {GroupInfobox},
+  components: { GroupHome, GroupInfobox},
   props:{
     judge: {
       type:String,
@@ -38,52 +38,54 @@ export default {
   },
   data(){
     return{
+      groupHomeVisible:false,
       userId:"",
-      message: [
-        // {
-        //   userId:"1234",
-        //   groupId:"200001",
-        //   grouper:"徐悲鸿",
-        //   groupName:"马到成功"
-        // },
-        // {
-        //   userId:"5678",
-        //   groupId:"200002",
-        //   grouper:"齐白石",
-        //   groupName:"虾米"
-        // },
-      ]
+      message: []
     }
   },
   methods:{
+    isClick(message){
+      //alert('aaaaaaa');
+      this.groupHomeVisible = !this.groupHomeVisible;
+      if(message !== 'return'){
+
+
+      }
+
+    },
     load_userId(){
       this.userId = localStorage.getItem("token");
-    },
-    successmsg(message) {
-      this.$message.success(message);
-    },
-    errormsg(message) {
-      this.$message.error(message);
-    },
+    }
   },
   mounted() {
     this.load_userId();
     var _this = this;
     let formData = new FormData();
-    formData.append('userId',this.userId)
+    formData.append('userId', this.userId)
     formData.append("username", localStorage.getItem("token"));
     let config = {
       headers: {
         "Content-Type": "multipart/form-data",
       }
     };
-    axios.post("http://localhost:8080/api/api/mygroup", formData, config)
-        .then(function (response) {
-          _this.data().message = response.data();
-        })
-        .catch(function () {
-          _this.errormsg("失败，请尝试刷新后重试");
-        });
+    if (this.judge === 'create') {
+      axios.post("http://localhost:5000/api/group_created_byme/", formData, config)
+          .then(function (response) {
+            _this.data().message = response.data();
+          })
+          .catch(function () {
+            _this.errormsg("退出失败，请尝试刷新后重试");
+          });
+    }
+    if (this.judge === 'join') {
+      axios.post("http://localhost:5000/api/mygroup/", formData, config)
+          .then(function (response) {
+            _this.data().message = response.data();
+          })
+          .catch(function () {
+            _this.errormsg("退出失败，请尝试刷新后重试");
+          });
+    }
   }
 }
 </script>
@@ -105,5 +107,6 @@ export default {
   height: 60px;
   line-height: 1px;
 }
+
 
 </style>

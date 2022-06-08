@@ -20,13 +20,13 @@
               <el-breadcrumb-item>
                 <el-button type="text"  size="medium"@click="exportWord()">导出为Word</el-button>
               </el-breadcrumb-item>
-          </el-breadcrumb> 
+          </el-breadcrumb>
 
-          
+
           </el-col>
   </div>
 
-            <mavon-editor  
+            <mavon-editor
               v-model="content"
               ref="md"
               @change="change"
@@ -49,20 +49,13 @@
 
 <script>
 import { mavonEditor } from "mavon-editor";
-import userCard from '../components/userCard';
 import "mavon-editor/dist/css/index.css";
-import axios from "axios";
 import moment from "moment";
 import "@/utils/htmlToPdf.js";
 import docxtemplater from 'docxtemplater';
-import PizZip from 'pizzip';
 import JSZip from "jszip";
 import JSZipUtils from 'jszip-utils';
 import {saveAs} from 'file-saver';
-import $ from 'jquery';
-import html2canvas from 'html2canvas';
-import docCard from '../components/docCard';
-import accessform from '../components/accessForm';
 
 
 function myrefresh() {
@@ -117,7 +110,7 @@ export default {
           console.log(error)
           throw error;
         }
-        
+
         // 创建一个JSZip实例，内容为模板的内容
         let zip = new JSZip(content);
         // 创建并加载docxtemplater实例对象
@@ -126,7 +119,7 @@ export default {
         doc.setData({
           content: _this.content,
         });
-        
+
         try {
           // 用模板变量的值替换所有模板变量
           doc.render();
@@ -141,7 +134,7 @@ export default {
           console.log(JSON.stringify({ error: e }));
           throw error;
         }
-        
+
         // 生成一个代表docxtemplater对象的zip文件（不是一个真实的文件，而是在内存中的表示）
         let out = doc.getZip().generate({
           type: "blob",
@@ -167,10 +160,10 @@ export default {
       this.$message.warning(message);
     },
     //加载用户权限
-    
+
     callback() {},
-    
-  
+
+
   destroyed() {
     clearInterval(this.timer);
     this.websock.close(); //离开路由之后断开websocket连接
