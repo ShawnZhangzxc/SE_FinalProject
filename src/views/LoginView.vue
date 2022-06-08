@@ -101,6 +101,7 @@ const axios = require('axios');
                   localStorage.setItem('userid', response.data.id);
                   console.log("用户登录" + localStorage.getItem("userid"));
                   _this.successmessage("登录成功");
+                  _this.$router.push("/personaldoc");
                   // _this.$router.push('/');
 
                   

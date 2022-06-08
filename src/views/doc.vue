@@ -77,7 +77,7 @@
               <template slot-scope="scope">
                 <el-button
                 size="mini"
-                  @click="invite(text.id)">邀请</el-button>
+                  @click="invite(inviteuser)">邀请</el-button>
                 </template>
              </el-table-column>
            </el-table>        
@@ -386,20 +386,20 @@ export default {
     invite(e){
       var _this = this;
       let formData = new FormData();
-      formData.append("user_id", this.userId);
+      // formData.append("user_id", this.userId);
+      formData.append("username", localStorage.getItem('token'));
       formData.append("documentID",_this.$route.params.id);
-      formData.append("target_user_id",e );
+      formData.append("target_user_name",e );
       console.log("文档id 被邀请人id 邀请者id")
       console.log(_this.$route.params.id)
       console.log(e)
-      console.log(_this.userId)
-      console.log("b")
       let config = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       };
-      axios.post("http://localhost:8080/api/api/pernal_doc_share_to", formData, config)
+      axios.post("http://localhost:8080/api/api/personal_share_to", formData, config)
+      //pernal_doc_share_to
         .then(function (response) {
           //console.log(response.data)
           if (response) {

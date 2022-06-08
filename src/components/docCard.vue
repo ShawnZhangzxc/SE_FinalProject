@@ -225,20 +225,27 @@ export default {
         this.errormsg("您没有权限");
         return;
       }
-      this.$confirm({
-        title: <div style="font-weight:bold">确认删除？</div>,
-        content: (x==1)?<div style="color:red;">文件将被移入回收站</div>:<div style="color:red;">文件将<span style="font-weight:bold"> 永 远 消 失 ！</span></div>,
-        okText: '删除',
-        okType: 'danger',
-        cancelText: '取消',
-        onOk() {
-          console.log('OK');
-          _this.$options.methods.deleteDocs(x, _this);
-        },
-        onCancel() {
-          console.log('Cancel');
-        },
-      });
+      this.$confirm('确认删除',{
+        confirmButtonText: '是',
+         cancelButtonText: '否', //相当于 取消按钮
+         type: 'warning'
+         }).then(() =>{
+           _this.$options.methods.deleteDocs(x, _this);
+         })
+      // this.$confirm({
+      //   title: <div style="font-weight:bold">确认删除？</div>,
+      //   content: (x==1)?<div style="color:red;">文件将被移入回收站</div>:<div style="color:red;">文件将<span style="font-weight:bold"> 永 远 消 失 ！</span></div>,
+      //   okText: '删除',
+      //   okType: 'danger',
+      //   cancelText: '取消',
+      //   onOk() {
+      //     console.log('OK');
+      //     _this.$options.methods.deleteDocs(x, _this);
+      //   },
+      //   onCancel() {
+      //     console.log('Cancel');
+      //   },
+      // });
     },
 
     addFavorDocs() {
