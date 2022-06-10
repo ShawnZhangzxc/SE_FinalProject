@@ -1,15 +1,17 @@
 <template>
     <div>
-        <el-table :data="data" style="width: 100%" :default-sort = "{prop: 'sender_time', order: 'descending'}">
-            <el-table-column prop="groupname" label="邀请团队" width="400">
+        <el-table :data="data" style="width: 100%" :default-sort = "{prop: 'datetime', order: 'descending'}">
+            <el-table-column prop="group_name" label="邀请团队" width="400">
             </el-table-column>
             <el-table-column prop="sender_name" label="邀请者" width="300">
             </el-table-column>
-            <el-table-column prop="sender_time" label="邀请时间" sortable width="300">
+            <el-table-column prop="datetime" label="邀请时间" sortable width="300">
             </el-table-column>
             <el-table-column prop="action" label="操作">
-                <el-button type="primary" plain @click="agree_invitation(item.id)">接受</el-button>
-                <el-button type="danger" plain @click="refuse_invitation(item.id)">拒绝</el-button>
+              <template scope="item">
+                <el-button type="primary" plain @click="agree_invitation(item.row.id)">接受</el-button>
+                <el-button type="danger" plain @click="refuse_invitation(item.row.id)">拒绝</el-button>
+              </template>
             </el-table-column>
         </el-table>
     </div>
@@ -30,6 +32,12 @@ export default {
     this.get_confirm_notice();
   },
   methods :{
+    successmsg(message) {
+      this.$message.success(message);
+    },
+    errormsg(message) {
+      this.$message.error(message);
+    },
     get_confirm_notice() {
       let formData = new FormData();
       formData.append("receiver_username", localStorage.getItem("token"));
@@ -67,9 +75,11 @@ export default {
         .then(function () {
             _this.data=_this.data.filter((record)=>record.id!=item.id)
             _this.$emit('updatenotice');
+            _this.successmsg("已接受邀请");
         })
         .catch(function (error) {
           console.log("Fail", error);
+          _this.errormsg("接受邀请失败，请重试");
         });
     },
 
@@ -92,9 +102,11 @@ export default {
         .then(function () {
             _this.data=_this.data.filter((record)=>record.id!=item.id)
             _this.$emit('updatenotice');
+            _this.successmsg("已拒绝邀请");
         })
         .catch(function (error) {
           console.log("Fail", error);
+          _this.errormsg("拒绝邀请失败，请重试");
         });
     },
   },

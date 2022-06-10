@@ -9,6 +9,9 @@
     <el-col :span="11">
       <h2 id="docname">阿巴阿巴文档</h2>
     </el-col>
+    <!-- <el-col :span="8">
+    <h4>当前用户：</h4>
+    </el-col> -->
     <el-col :span="12">
       <nav>
       <router-link to="/register">注册</router-link> |
@@ -27,7 +30,8 @@
       class="el-menu-vertical-demo"
       style=" background-color: #FFFFFF"
       @open="handleOpen"
-      @close="handleClose">
+      @close="handleClose"
+      >
       
       <el-submenu index="1">
         <template slot="title">
@@ -67,10 +71,10 @@
           <span>我的文档</span>
         </template>
         <el-menu-item>
-            <router-link to="/personaldoc">个人文档</router-link>
+            <router-link to="/personaldoc">我创建的文档</router-link>
         </el-menu-item>
         <el-menu-item>
-            <router-link to="/groupdoc">团队文档</router-link>
+            <router-link to="/groupdoc">所有相关文档</router-link>
         </el-menu-item>
         <el-menu-item>
            <router-link to="/trashbin">文档回收站</router-link>
@@ -105,6 +109,20 @@
 
   </div>
 </template>
+
+<script>
+ export default {
+
+    methods:{
+      handleOpen(){
+        console.log("okay");
+      },
+      handleClose(){
+        console.log("still okay");
+      }
+    }
+  }
+</script>
 
 <style> 
 #app {

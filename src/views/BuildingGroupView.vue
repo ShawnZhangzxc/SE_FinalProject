@@ -98,7 +98,7 @@ export default {
                 _this.successmsg("创建成功");
                 setTimeout(() => {
                   myrefresh();
-                }, 2000);
+                }, 1500);
               } else {
                 _this.errormsg("创建失败，请尝试刷新后再次创建");
               }

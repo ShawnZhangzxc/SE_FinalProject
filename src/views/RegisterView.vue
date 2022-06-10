@@ -118,6 +118,9 @@ const axios = require('axios');
       };
     },
     methods: {
+    myrefresh() {
+    window.location.reload();
+    },
       callback(key) {
         console.log(key);
       },
@@ -146,7 +149,8 @@ const axios = require('axios');
                     _this.successmessage("注册成功");
                     setTimeout(() => {
                       myrefresh();
-                    }, 2000);
+                    }, 1500);
+                    _this.$router.push("/login");
                   }
                   else if(response.data.message=="fail"){
                     _this.errormessage("用户名或者邮箱已存在");

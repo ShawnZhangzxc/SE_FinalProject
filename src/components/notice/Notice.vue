@@ -6,7 +6,9 @@
             <el-table-column prop="content" label="通知内容" width="600">
             </el-table-column>
             <el-table-column prop="action" label="操作">
-                <el-button type="text" @click="set_alredy_read(item.id)">标记为已读</el-button>
+              <template scope="item">
+                <el-button type="text" @click="set_already_read(item.row.id)">标记为已读</el-button>
+              </template>
             </el-table-column>
         </el-table>
     </div>
@@ -48,7 +50,7 @@ mounted: function () {
           console.log("Fail", error);
         });
     },
-
+    
     set_already_read(id) {
       var _this = this;
       var item = this.data.find((item) => item.id == id);

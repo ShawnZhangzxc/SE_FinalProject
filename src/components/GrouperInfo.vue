@@ -1,7 +1,7 @@
 <template>
   <div class="grouper-info" v-if="memberInfoVisible">
     <el-row>
-      <el-col :span=6 style="font-family: 楷体">{{userName}}</el-col>
+      <el-col :span=6 style="font-family: Consolas">{{userName}}</el-col>
       <el-col :span=6 style="font-family: Consolas">{{userId}}</el-col>
       <el-popconfirm
           confirm-button-text='确定'
@@ -15,6 +15,7 @@
                  style="color: black;
                  border-color: #333333"
                  slot="reference"
+                 v-if="leaderId !== userId"
       >
         移除成员
       </el-button>
@@ -24,6 +25,9 @@
 </template>
 
 <script>
+function myrefresh() {
+  window.location.reload();
+}
 const axios = require('axios');
 export default {
   name: "GrouperInfo",
@@ -39,23 +43,32 @@ export default {
     },
     userId:{
       required:true,
-      type:String
+      type:Number
+    },
+    leaderId:{
+      type:Number
+    },
+    groupId:{
+      type:Number
     }
   },
   methods:{
+    successmsg(message) {
+      this.$message.success(message);
+    },
+    errormsg(message) {
+      this.$message.error(message);
+    },
     removeMem(){
       this.memberInfoVisible=false;
       var _this = this;
-      this.$message({
-        message: '移除成功',
-        type: 'success'
-      });
       this.groupVisible = false;
       console.log("删除该项" + this.userId);
-      _this.data.splice(item, 1);
 
       let formData = new FormData();
       formData.append("userid", this.userId);
+      formData.append("groupid", this.groupId);
+      formData.append("leaderid", this.leaderId);
       console.log(localStorage.getItem("token"));
       let config = {
         headers: {
@@ -63,14 +76,14 @@ export default {
         },
       };
       axios
-          .post("http://localhost:8080/api/api/delete_group", formData, config)
+          .post("http://localhost:8080/api/api/delete_user", formData, config)
           .then(function (response) {
             console.log(response.data.message);
             if (response.data.message === "success") {
               _this.successmsg("删除成功");
               setTimeout(() => {
                 myrefresh();
-              }, 2000);
+              }, 1500);
             } else {
               _this.errormsg("删除失败，请尝试刷新后重试");
             }

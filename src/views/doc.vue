@@ -2,7 +2,7 @@
   <div class="main">
   <div class="workview-top">
           <el-col :span="12" style="float:left;margin-bottom:0px;">
-
+            <span style="float:left;margin-top:0px;color:blue">文档名：{{this.doctitle}}&nbsp&nbsp&nbsp&nbsp&nbsp</span>
             <span style="float:left;margin-top:0px;">正在编辑：</span>
             <span v-for="(user,index) in userList" :key="index" style="float:left;">
               <userCard :username="user.username"></userCard>
@@ -27,7 +27,7 @@
                      <el-button type="primary" plain size="medium" @click="newComment()">发表评论</el-button>
                 </span>
                 <li v-for="item in comment">
-                <userCard :userName="item.username"></userCard>
+                <userCard :username="item.username"></userCard>
                  {{item.content}}<br>
                 <span>{{ moment(item.datetime).subtract(8,'hours').fromNow()}}</span>
                 </li>            
@@ -40,7 +40,7 @@
                   width="400"
                   trigger="click">
                 <li v-for="item in modify_history">
-               <userCard :userName="item.username"></userCard>
+               <userCard :username="item.username"></userCard>
                  {{item.content}}<br>
                 <span>{{ moment(item.datetime).subtract(8,'hours').fromNow()}}</span>
                 </li>            
@@ -215,6 +215,7 @@ export default {
       keyword: "",
       comment: [],
       modify_history:[],
+
       watch_right:false,
       modify_right:true,
       discuss_right:true,
@@ -327,9 +328,8 @@ export default {
             if(!_this.watch_right){
               _this.warningmsg("您没有权限浏览该文档")
               setTimeout(() => {
-                _this.$router.push("/");
-                _this.$router.go(0);
-              }, 2000);
+                _this.$router.push("/work");
+              }, 1500);
             }
             else{
               _this.load_data(_this.$route.params.id);
@@ -392,7 +392,8 @@ export default {
       formData.append("target_user_name",e );
       console.log("文档id 被邀请人id 邀请者id")
       console.log(_this.$route.params.id)
-      console.log(e)
+      console.log(e);
+      console.log(_this.$route.params.id);
       let config = {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -401,7 +402,7 @@ export default {
       axios.post("http://localhost:8080/api/api/personal_share_to", formData, config)
       //pernal_doc_share_to
         .then(function (response) {
-          //console.log(response.data)
+          
           if (response) {
             _this.successmsg("邀请成功");
           } else {
@@ -434,7 +435,7 @@ export default {
             _this.successmsg("保存成功");
             setTimeout(() => {
               myrefresh();
-            }, 2000);
+            }, 1500);
           } else {
             console.log("失败");
           }
@@ -542,7 +543,8 @@ export default {
         });
     },
     initWebSocket(){ //初始化weosocket
-      const wsuri = "ws://49.235.221.218:8888/conn";
+      const wsuri = "ws://localhost:8080";
+      // const wsuri = "ws://49.235.221.218:8888/conn";
       this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;

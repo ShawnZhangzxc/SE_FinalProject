@@ -1,13 +1,13 @@
 <template>
   <div id="new-group-button">
-    <el-col :span="6" :offset="18">
+    <el-col :span="6" :offset = "19">
       <el-popover
           placement="top-start"
           width="200"
           trigger="hover"
-          content="点我创建一个新团队
-          o(*￣▽￣*)ブ">
-        <el-button  slot="reference" @click="showTeamForm" round icon="el-icon-s-opportunity"></el-button>
+          content="点击创建一个新团队">
+          <el-button slot="reference" @click="showTeamForm" type="primary" >点击新建团队</el-button>
+        <!-- <el-button  slot="reference" @click="showTeamForm" round icon="el-icon-s-opportunity"></el-button> -->
       </el-popover>
     </el-col>
     <div id="TeamForm">
@@ -98,7 +98,7 @@ export default {
               _this.successmsg("创建成功");
               setTimeout(() => {
                 myrefresh();
-              }, 2000);
+              }, 1500);
             } else {
               _this.errormsg("创建失败，请尝试刷新后再次创建");
             }

@@ -5,6 +5,9 @@
     <h1>欢迎使用阿巴阿巴文档</h1>
   </div>
 
+
+
+
   <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" class="demo-loginForm" >
     <el-form-item label="用户名" prop="userName" >
       <el-input v-model="loginForm.userName" autocomplete="off" class="input" ></el-input>
@@ -21,6 +24,7 @@
     <el-form-item>
       <el-button type="primary" @click="checklogin()">登录</el-button>
       <el-button @click="resetForm('loginForm')">重置</el-button>
+      <el-button @click="logout()">登出</el-button>
     </el-form-item>
   </el-form>
 
@@ -53,6 +57,8 @@ const axios = require('axios');
           pass: '',
           userName: ''
         },
+        // curUser:"",
+        // user_visible:false,
         rules: {
           pass: [
             { validator: validatePass, trigger: 'blur' },
@@ -73,6 +79,15 @@ const axios = require('axios');
       };
     },
     methods: {
+      ask_parent_to_get_currentuser(){
+        this.$parent.get_currentUser();
+      },
+      logout(){
+      this.successmessage(localStorage.getItem("token")+"已下线");
+       localStorage.removeItem('token');
+      // this.user_visible= false;
+      // this.curUser='NULL';
+      },
       callback(key) {
         console.log(key);
       },
@@ -83,6 +98,7 @@ const axios = require('axios');
         this.$message.error(msg);
       },
       checklogin(){
+      
       let formData = new FormData();
       formData.append('username', this.loginForm.userName);
       formData.append('password', this.loginForm.pass);
@@ -100,7 +116,9 @@ const axios = require('axios');
                   localStorage.setItem('token',_this.loginForm.userName);
                   localStorage.setItem('userid', response.data.id);
                   console.log("用户登录" + localStorage.getItem("userid"));
-                  _this.successmessage("登录成功");
+                  _this.successmessage(localStorage.getItem("token")+"登录成功");
+                  _this.curUser=localStorage.getItem("token");
+                  // _this.ask_parent_to_get_currentuser();
                   _this.$router.push("/personaldoc");
                   // _this.$router.push('/');
 
@@ -109,10 +127,12 @@ const axios = require('axios');
               }else {
                   // _this.wronglog.wl=true;
                   // _this.rightlog.rl=false;
+                   _this.errormessage("登录失败，请检查用户名和密码是否正确");
+                  console.log("未登录成功");
               }
           })
           .catch(function () {
-             _this.errormessage("未知错误，请稍后再试")
+             _this.errormessage("未知错误，请稍后再试la")
           });
       },
       resetForm(formName) {

@@ -42,14 +42,6 @@ class Document(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
 
 
-# class DocumentUser(models.Model):
-#     document = models.ForeignKey(Document, on_delete=models.CASCADE)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     last_watch = models.DateTimeField()
-#     favorite = models.IntegerField()
-#     modified_time = models.IntegerField()
-#     type = models.IntegerField()
-
 class DocumentUser(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -57,6 +49,7 @@ class DocumentUser(models.Model):
     favorite = models.IntegerField()
     modified_time = models.DateTimeField()
     type = models.IntegerField()
+
 
 class Comment(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)

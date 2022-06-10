@@ -188,7 +188,7 @@ export default {
             self.successmsg("删除成功");
             setTimeout(() => {
               myrefresh();
-            }, 2000);
+            }, 1500);
           } else {
             self.errormsg("删除失败，请尝试刷新后重试");
           }
@@ -205,7 +205,7 @@ export default {
               self.successmsg("彻底删除成功");
               setTimeout(() => {
                 myrefresh();
-              }, 2000);
+              }, 1500);
             } else {
               self.errormsg("彻底删除失败，请尝试刷新后重试");
             }
@@ -295,7 +295,7 @@ export default {
             _this.successmsg("取消收藏成功");
             setTimeout(() => {
               myrefresh();
-            }, 2000);
+            }, 1500);
           } else {
             _this.errormsg("取消收藏失败，请尝试刷新后重试");
           }
@@ -321,7 +321,7 @@ export default {
             _this.successmsg("恢复成功");
             setTimeout(() => {
               myrefresh();
-            }, 2000);
+            }, 1500);
           } else {
             _this.errormsg("恢复失败，请稍后重试");
           }
@@ -360,7 +360,7 @@ export default {
             _this.successmsg("修改成功！");
             setTimeout(() => {
               myrefresh();
-            }, 2000);
+            }, 1500);
           } else {
             _this.errormsg("修改失败，您不是文档的创建者！");
           }
@@ -372,6 +372,9 @@ export default {
     handleCancel() {
       this.visible = false;
     },
+    handleClose(){
+      console.log("okay的")
+    }
   },
 }
 </script>

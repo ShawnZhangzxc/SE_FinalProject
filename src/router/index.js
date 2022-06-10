@@ -147,30 +147,84 @@ const router = new VueRouter({
 })
 
 
-router.beforeEach((to,from,next) => {
-  //to到哪儿  from从哪儿离开  next跳转 为空就是放行  
-    if (to.path === '/loginView') {
-      //如果跳转为登录，就放行 
-      next();
-    }
-    else if(to.path === '/register'){
-      next();
-    } 
-    else if(to.path === '/work'){
-      next();
+// router.beforeEach((to,from,next) => {
+//     if(to.path == '/ '){
+//       next();
+//     }
+//   //to到哪儿  from从哪儿离开  next跳转 为空就是放行  
+//     if (to.path == '/login') {
+//       //如果跳转为登录，就放行 
+//       next();
+//     }
+//     else if(to.path == '/register'){
+//       next();
+//     } 
+//     else if(to.path == '/work'){
+//       next();
     
-    }else {
-    //取出localStorage判断
-          let token = localStorage.getItem('token');            
-          if (token == null || token === '') { 
-                 console.log('请先登录3')    
-                 console.log(to.path)
-                 alert("请先登录！")
-                 //next({name:'loginView'});
-             } else {
-                    next();   
-             }   
-  }});
+//     }else {
+//     //取出localStorage判断
+//           let token = localStorage.getItem('token');            
+//           if (token == null || token === '') { 
+//                  console.log('请先登录3')    
+//                  console.log(to.path)
+//                  alert("此功能需登录后使用！")
+//                  //next({name:'loginView'});
+//              } else {
+//                     next();   
+//              }   
+//   }});
 
+
+router.beforeEach((to,from,next) => {
+        let token = localStorage.getItem('token');            
+        if (token == null || token === '') { 
+
+
+          if(to.path == '/systemnews'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/groupnews'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/trashbin'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/recent'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/personalinfo'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/personaldoc'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/joinedgroup'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/groupdoc'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/keptdoc'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/createdgroup'){
+            alert("此功能需登录后使用！")
+          }
+          else if(to.path == '/buildinggroup'){
+            alert("此功能需登录后使用！")
+          }
+          else {
+            next();
+          }
+          }
+              //  console.log('请先登录3')    
+              //  console.log(to.path)
+              //  alert("此功能需登录后使用！")
+               
+          else {
+                  next();   
+           }   
+});
 
 export default router

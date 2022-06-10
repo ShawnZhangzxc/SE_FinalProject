@@ -94,13 +94,13 @@ export default {
 		return{
       DocumentID:'',
 			rightObj:{
-				modify_right: false,
-				share_right: false,
-				discuss_right: false,
+				modify_right: true,
+				share_right: true,
+				discuss_right: true,
 
-				others_modify_right: false,
-				others_share_right: false,
-				others_discuss_right: false,
+				others_modify_right: true,
+				others_share_right: true,
+				others_discuss_right: true,
 
 				isleader: false,
 				doctype:-1,
@@ -240,16 +240,16 @@ export default {
 				formData.append("documentID", this.propDocumentID);
 				
 				formData.append("username", localStorage.getItem("token"));
-				formData.append("others_share_right",this.rightObj.others_share_right?1:0);
-				formData.append("others_discuss_right",this.rightObj.others_discuss_right?1:0);
-				formData.append("others_modify_right",this.rightObj.others_modify_right?1:0);
+				formData.append("others_share_right",this.rightObj.others_share_right?(1-0):(0-0));
+				formData.append("others_discuss_right",this.rightObj.others_discuss_right?(1-0):(0-0));
+				formData.append("others_modify_right",this.rightObj.others_modify_right?(1-0):(0-0));
 				let config = {
 					headers: {
 						"Content-Type": "multipart/form-data",
 					},
 				};
 				axios
-					.post("http://localhost:8080/api/modify_personal_doc_right", formData, config)
+					.post("http://localhost:8080/api/api/modify_personal_doc_right", formData, config)
 					.then(function (response) {
 						if (response.data.message=='success') {
 							_this.$message.success('修改成功');
@@ -265,19 +265,19 @@ export default {
 					let formData = new FormData();
 					formData.append("documentID", this.propDocumentID);
 					formData.append("username", localStorage.getItem("token"));
-					formData.append("share_right",this.rightObj.share_right?1:0);
-					formData.append("discuss_right",this.rightObj.discuss_right?1:0);
-					formData.append("modify_right",this.rightObj.modify_right?1:0);
-					formData.append("others_share_right",this.rightObj.others_share_right?1:0);
-					formData.append("others_discuss_right",this.rightObj.others_discuss_right?1:0);
-					formData.append("others_modify_right",this.rightObj.others_modify_right?1:0);
+					formData.append("share_right",this.rightObj.share_right?(1-0):(0-0));
+					formData.append("discuss_right",this.rightObj.discuss_right?(1-0):(0-0));
+					formData.append("modify_right",this.rightObj.modify_right?(1-0):(0-0));
+					formData.append("others_share_right",this.rightObj.others_share_right?(1-0):(0-0));
+					formData.append("others_discuss_right",this.rightObj.others_discuss_right?(1-0):(0-0));
+					formData.append("others_modify_right",this.rightObj.others_modify_right?(1-0):(0-0));
 					let config = {
 						headers: {
 							"Content-Type": "multipart/form-data",
 						},
 					};
 					axios
-						.post("http://localhost:8080/api/api/modify_group_doc_rights", formData, config)
+						.post("http://localhost:8080/api/api/modify_group_doc_right", formData, config)
 						.then(function (response) {
 							if (response.data.message=='success') {
 								_this.$message.success('修改成功');
