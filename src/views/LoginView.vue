@@ -83,6 +83,10 @@ const axios = require('axios');
         this.$parent.get_currentUser();
       },
       logout(){
+      if(localStorage.getItem('token')==null){
+        this.errormessage("当前无用户登录");
+        return;
+      };
       this.successmessage(localStorage.getItem("token")+"已下线");
        localStorage.removeItem('token');
       // this.user_visible= false;

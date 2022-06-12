@@ -7,7 +7,7 @@
                     <h2>文档权限管理</h2>    
                 </span>
  				 </div>
-                    <h3>团队成员权限</h3>
+                    <h3>非团队成员权限</h3>
                     <el-row>
                         <el-col :span="9"><div class="grid-content bg-purple">修改文档 ：</div></el-col>
                            <el-col :span="12"><div class="grid-content bg-purple-light">
@@ -38,7 +38,7 @@
                            </div></el-col>
                          </el-row>
                     
-                     <h3>非团队成员权限</h3>
+                     <h3>团队成员权限</h3>
                      <el-row>
                            <el-col :span="9"><div class="grid-content bg-purple">修改文档 ：</div></el-col>
                            <el-col :span="12"><div class="grid-content bg-purple-light">
@@ -265,7 +265,7 @@ export default {
 					let formData = new FormData();
 					formData.append("documentID", this.propDocumentID);
 					formData.append("username", localStorage.getItem("token"));
-					formData.append("share_right",this.rightObj.share_right?(1-0):(0-0));
+					formData.append("share_right",this.rightObj.share_right?1:0);
 					formData.append("discuss_right",this.rightObj.discuss_right?(1-0):(0-0));
 					formData.append("modify_right",this.rightObj.modify_right?(1-0):(0-0));
 					formData.append("others_share_right",this.rightObj.others_share_right?(1-0):(0-0));

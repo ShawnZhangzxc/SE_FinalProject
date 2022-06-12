@@ -212,7 +212,7 @@ export default {
       configs: {},
       collapsed: false,
       moment,
-      keyword: "",
+      keyword: "冒个泡",
       comment: [],
       modify_history:[],
 
@@ -385,12 +385,17 @@ export default {
           },
     invite(e){
       var _this = this;
+      if(_this.share_right==false){
+        this.errormsg("您没有分享权限");
+        return;
+      }
+      console.log(_this.share_right+"111");
       let formData = new FormData();
       // formData.append("user_id", this.userId);
       formData.append("username", localStorage.getItem('token'));
       formData.append("documentID",_this.$route.params.id);
       formData.append("target_user_name",e );
-      console.log("文档id 被邀请人id 邀请者id")
+      console.log("文档id"+_this.$route.params.id+ "被邀请人"+e+ "邀请者"+localStorage.getItem('token'))
       console.log(_this.$route.params.id)
       console.log(e);
       console.log(_this.$route.params.id);
@@ -447,6 +452,10 @@ export default {
     // 新的评论
     newComment() {
       console.log(this.keyword);
+      if(this.keyword==''){
+        this.errormsg("请输入评论信息");
+        return;
+      };
       this.comment.unshift({ content: this.keyword,username:localStorage.getItem("token"),datetime:moment().add(8,'hours')});
       console.log(moment().add(8,'hours').calendar())
       let formData=new FormData();
@@ -470,7 +479,7 @@ export default {
         .catch(function (error) {
           console.log("Fail", error);
         });
-      this.keyword = "";
+      this.keyword = "冒个泡";
     },
     load_data(id) {
       let formData = new FormData();

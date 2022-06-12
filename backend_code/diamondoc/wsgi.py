@@ -9,8 +9,14 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
 
 import os
 
+from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'diamondoc.settings')
 
 application = get_wsgi_application()
+# application = ProtocolTypeRouter({
+#     'websocket': URLRouter([
+#
+#     ])
+# })
